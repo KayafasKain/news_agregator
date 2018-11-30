@@ -10,12 +10,12 @@ from scrapy.utils.serialize import ScrapyJSONEncoder
 _encoder = ScrapyJSONEncoder()
 MONGO_CLIENT = motor.motor_asyncio.AsyncIOMotorClient(
     'mongodb://Admin1:Admin1@ds129926.mlab.com:29926/news_aggregator'
-)
+).news_aggregator.everypony
 
 class PostgathererPipeline(object):
     db = MONGO_CLIENT
     async def insert_item(self, item):
-        await self.db.news_aggregator.everypony.update_one(item, {'$set': item}, upsert=True)
+        await self.db.update_one(item, {'$set': item}, upsert=True)
 
     def process_item(self, item, spider):
         loop = asyncio.get_event_loop()
